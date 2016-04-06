@@ -1,9 +1,7 @@
 'use strict';
 
-class AtomicCore {
-  test() {
-    console.log('Hello, Atomic Core!');
-  }
-}
-
-module.exports = AtomicCore;
+module.exports = {
+  Atom : require('./lib/components/Atom'),
+  Molecule : require('./lib/components/Molecule'),
+  Organism : require('./lib/components/Organism')
+};
