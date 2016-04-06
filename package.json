@@ -1,6 +1,6 @@
 {
   "name": "atomic-core",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "OOP Javascript Library for Building Components Under the Atomic Design System",
   "main": "lib/index.js",
   "scripts": {
