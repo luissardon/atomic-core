@@ -12,10 +12,11 @@
   },
   "keywords": [
     "atomic",
-    "design",
     "components",
-    "library",
+    "design",
     "javascript",
+    "library",
+    "oop",
     "system"
   ],
   "author": "Luis Sardon",
