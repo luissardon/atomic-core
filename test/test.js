@@ -11,7 +11,7 @@ browserify({
   })
   .on("error", function (err) { console.log("Error: " + err.message); })
   .transform("babelify", {
-      presets: ["es2015"]           
+      presets: ["es2015"]
   })
   .bundle()
   .on("error", function (err) { console.log("Error: " + err.message); })
