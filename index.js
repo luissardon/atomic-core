@@ -1,7 +1,3 @@
-import Atom from './lib/components/Atom';
-import Molecule from './lib/components/Molecule';
-import Organism from './lib/components/Organism';
+'use strict';
 
-export default Atom;
-export default Molecule;
-export default Organism;
+module.exports = require('./lib/atomic-core.js');
