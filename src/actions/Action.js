@@ -2,6 +2,8 @@
 
 const ACTIVATE = 'activate';
 const DEACTIVATE = 'deactivate';
+const ADDED = 'added';
+const REMOVED = 'removed';
 
 /**
  * The Action class is used as the base class for the creation of Action objects,
@@ -17,6 +19,8 @@ class Action {
 
   static get ACTIVATE() { return ACTIVATE; }
   static get DEACTIVATE() { return DEACTIVATE; }
+  static get ADDED() { return ADDED; }
+  static get REMOVED() { return REMOVED; }
 
   /**
    * @todo Prevents processing of any aciion listeners in nodes subsequent to the
