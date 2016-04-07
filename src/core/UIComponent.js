@@ -1,5 +1,6 @@
 'use strict';
 
+import Action from '../actions/Action';
 import ActionDispatcher from '../actions/ActionDispatcher';
 
 /**
@@ -9,7 +10,26 @@ import ActionDispatcher from '../actions/ActionDispatcher';
  */
 
 class UIComponent extends ActionDispatcher {
+  constructor(name) {
+    super();
 
+    /**
+     * Define read-only 'name' property
+     *
+     */
+
+    Object.defineProperty(this, 'name', {
+      value: name,
+      writable: false
+    });
+
+    this.dispatchAction(Action.ADDED);
+  }
+
+  /**
+   * Render
+   *
+   */
   render() {
 
   }
