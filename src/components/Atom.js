@@ -1,3 +1,5 @@
+'use strict';
+
 import UIComponent from '../core/UIComponent';
 
 /**
@@ -6,7 +8,9 @@ import UIComponent from '../core/UIComponent';
  *
  */
 class Atom extends UIComponent {
-
+  constructor() {
+    super();
+  }
 }
 
 export default Atom;

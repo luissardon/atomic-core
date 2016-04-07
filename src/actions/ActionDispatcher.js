@@ -1,3 +1,5 @@
+'use strict';
+
 import Utils from '../utils/Utils';
 
 /**

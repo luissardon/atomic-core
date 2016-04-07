@@ -1,3 +1,5 @@
+'use strict';
+
 import ActionDispatcher from '../actions/ActionDispatcher';
 
 /**
