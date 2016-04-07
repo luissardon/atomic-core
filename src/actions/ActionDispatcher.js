@@ -1,5 +1,6 @@
 'use strict';
 
+import Action from './Action';
 import Utils from '../utils/Utils';
 
 /**
@@ -32,11 +33,13 @@ class ActionDispatcher {
    */
 
   addActionListener(type, listener, priority, useWeakReference) {
+    priority = priority || 0;
+    useWeakReference = useWeakReference || false;
 
     let actionListener = {
       listener : listener,
-      priority : priority || 0,
-      useWeakReference : useWeakReference || false
+      priority : priority,
+      useWeakReference : useWeakReference
     };
 
     /**
@@ -48,12 +51,12 @@ class ActionDispatcher {
     listener.uid = listener.uid || Utils.getUID();
 
     /**
-     * Create a new list of actionFlow
+     * Create an actionFlow list
      *
      */
 
     this.actionFlow[type] = this.actionFlow[type] || [];
-    this.actionFlow[type][priority] = this.actionFlow[type][priority] = [];
+    this.actionFlow[type][priority] = this.actionFlow[type][priority] || [];
 
     /**
      * Add the listener object in to the action flow
@@ -77,7 +80,7 @@ class ActionDispatcher {
     let actionList = this.actionFlow[type];
 
     for (let i in actionList) {
-      if(!actionList[i])
+      if(actionList[i] === undefined)
         delete this.actionFlow[type][i];
     }
 
@@ -97,20 +100,25 @@ class ActionDispatcher {
    */
 
   dispatchAction(action) {
+    action = typeof action === "string" ? new Action(action) : action;
     let actionList = this.actionFlow[action.type];
+    let listeners = [];
 
-    for (let i of actionList) {
+    for (let i in actionList) {
       let priorityList = actionList[i];
 
       for (let i in priorityList) {
         let actionListener = priorityList[i];
 
         actionListener.listener.apply(this, [action]);
+        listeners.push(actionListener);
 
         if(actionListener.useWeakReference)
           delete this.actionFlow[action.type][actionListener.priority][i];
       }
     }
+
+    return listeners;
   }
 
   /**
