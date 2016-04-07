@@ -16,15 +16,15 @@ let atom = new Atom();
 let molecule = new Molecule();
 let organism = new Organism();
 
-test('UIComponent debe ser una extencion de ActionDispatcher', t => {
+test('UIComponent SHOULD BE AN EXTENSION OF ActionDispatcher', t => {
   t.truthy(uiComponent.actionFlow);
 });
-test('Atom debe ser una extencion de UIComponent', t => {
+test('Atom SHOULD BE AN EXTENSION OF UIComponent', t => {
   t.truthy(atom.render);
 });
-test('Molecule debe ser una extencion de UIComponent', t => {
+test('Molecule SHOULD BE AN EXTENSION OF UIComponent', t => {
   t.truthy(molecule.render);
 });
-test('Organism debe ser una extencion de UIComponent', t => {
+test('Organism SHOULD BE AN EXTENSION OF UIComponent', t => {
   t.truthy(organism.render);
 });
