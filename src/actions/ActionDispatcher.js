@@ -104,8 +104,9 @@ class ActionDispatcher {
     let actionList = this.actionFlow[action.type];
     let listeners = [];
 
-    for (let i in actionList) {
-      let priorityList = actionList[i];
+    let orderedActionList = [].concat(actionList).reverse();
+    for (let i in orderedActionList) {
+      let priorityList = orderedActionList[i];
 
       for (let i in priorityList) {
         let actionListener = priorityList[i];
@@ -132,13 +133,14 @@ class ActionDispatcher {
   removeActionListener(type, listener) {
     let actionList = this.actionFlow[type];
 
-    for (let i of actionList) {
+    for (let i in actionList) {
       let priorityList = actionList[i];
 
       for (let i in priorityList) {
         let actionListener = priorityList[i];
 
-        delete this.actionFlow[type][actionListener.priority][i];
+        if(actionListener.listener.uid === listener.uid)
+          delete this.actionFlow[type][actionListener.priority][i];
 
         break;
       }
