@@ -5,7 +5,7 @@ Diseño Atómico* para el **Proyecto Atomic**.
 Lee más acerca de este proyecto [aquí](#).
 
 ## Traducciones
-* [Inglés](https://github.com/luissardon/atomic-core/README.md)
+* [Inglés](https://github.com/luissardon/atomic-core/blob/master/README.md)
 
 ## Cómo funciona
 
