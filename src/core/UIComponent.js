@@ -41,7 +41,7 @@ class UIComponent extends ActionDispatcher {
      */
 
     Object.defineProperty(this, 'view', {
-      value: this.render(),
+      value: this.render,
       writable: false
     });
 
@@ -49,10 +49,20 @@ class UIComponent extends ActionDispatcher {
   }
 
   /**
-   * Render
-   * @return {html} Component View
+   * Get Parent Atomic Component if exist
+   *
+   * @return {boolean}
+   * @todo
    */
-  render() {
+  get parent() {
+
+  }
+
+  /**
+   * Component View
+   * @return {html}
+   */
+  get render() {
     return document.querySelectorAll(`[data-cid="${this['cid']}"]`);
   }
 }
