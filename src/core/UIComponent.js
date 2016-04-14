@@ -35,15 +35,25 @@ class UIComponent extends ActionDispatcher {
       writable: false
     });
 
+    /**
+     * Define read-only 'view' property
+     *
+     */
+
+    Object.defineProperty(this, 'view', {
+      value: this.render(),
+      writable: false
+    });
+
     this.dispatchAction(Action.ADDED);
   }
 
   /**
    * Render
-   *
+   * @return {html} Component View
    */
   render() {
-
+    return document.querySelectorAll(`[data-cid="${this['cid']}"]`);
   }
 }
 
