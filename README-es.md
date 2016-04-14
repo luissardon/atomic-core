@@ -2,7 +2,7 @@
 Librería Javascript con POO para la creación de Componentes bajo el *Sistema de
 Diseño Atómico* para el **Proyecto Atomic**.
 
-Lee más acerca del *Proyecto Atomic* [aquí](#).
+Lee más acerca del *Proyecto Atomic* [aquí](https://github.com/luissardon/atomic-proyect/blob/master/README-es.md).
 
 ## Traducciones
 * [Inglés](https://github.com/luissardon/atomic-core/blob/master/README.md)

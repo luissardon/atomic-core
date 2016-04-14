@@ -2,7 +2,7 @@
 OOP Javascript Library for Building Components Under the *Atomic Design System*
 for **The Atomic Project**.
 
-Learn more about *The Atomic Project* [here](#).
+Learn more about *The Atomic Project* [here](https://github.com/luissardon/atomic-proyect/blob/master/README.md).
 
 ## Translations
 * [Spanish](https://github.com/luissardon/atomic-core/blob/master/README-es.md)
