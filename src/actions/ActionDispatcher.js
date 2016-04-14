@@ -14,7 +14,60 @@ import Utils from '../utils/Utils';
 class ActionDispatcher {
 
   constructor() {
-    this.actionFlow = {};
+
+    /**
+     * Define read-only 'actionFlow' property
+     *
+     */
+
+    Object.defineProperty(this, 'actionFlow', {
+      value: {}
+    });
+
+    /**
+     * Define writable 'active' property
+     *
+     */
+
+    Object.defineProperty(this, 'active', {
+      value: true,
+      writable: true
+    });
+  }
+
+  /**
+   * Get the Action Flow
+   *
+   */
+
+  get actionFlow() {
+    return this['actionFlow'];
+  }
+
+  /**
+   * Know whether the Action Dispatcher is active or not.
+   *
+   */
+
+  get active() {
+    return this['active'];
+  }
+
+  /**
+   * Activate/Deactivate dispatch actions
+   * @param {value} Boolean
+   */
+
+  set active(value) {
+    if(this.active === false && value === true) {
+      dispatchAction(Action.ACTIVATE);
+    }
+
+    if(this.active === true && value === false) {
+      dispatchAction(Action.DEACTIVATE);
+    }
+
+    this['active'] = false;
   }
 
   /**
@@ -100,6 +153,10 @@ class ActionDispatcher {
    */
 
   dispatchAction(action) {
+    if(this.active === false) {
+      return listeners;
+    }
+
     action = typeof action === "string" ? new Action(action) : action;
     let actionList = this.actionFlow[action.type];
     let listeners = [];
