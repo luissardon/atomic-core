@@ -13,7 +13,7 @@ is to give us a way to manage the **functional** part in this concept, for
 making components.
 
 If you didn't know about *The Atomic Project* at all, I recommend you to first
-take a look at ***"Parts of an Atomic Component"*** [here](#).
+take a look at ***["Parts of an Atomic Component"](#)***.
 
 ### Features
 - Creating components classes by *[Inheritance](#)*.

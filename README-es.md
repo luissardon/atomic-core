@@ -13,7 +13,7 @@ propósito es el de darnos una forma de manejar la parte **funcional** de este
 concepto, para la creación de componentes.
 
 Si no conoces nada de el *Proyecto Atomic*, te recomiendo que primero leas
-***"Partes de un Componente Atomic"*** [aquí](#).
+***["Partes de un Componente Atomic"](#)***.
 
 ### Características
 - Creación de Clases de los Componentes por medio de *[Herencia](#)*.
