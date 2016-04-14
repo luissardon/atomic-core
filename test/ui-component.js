@@ -3,7 +3,7 @@
 import {UIComponent} from '../lib/index.js';
 import test from 'ava';
 
-let component = new UIComponent('some');
+let component = new UIComponent('abstract', 'some');
 
 test('SHOULDN\'T CHANGE THE CID OF THE COMPONENT PROPERTY', t => {
   try {
