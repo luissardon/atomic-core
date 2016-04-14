@@ -1,8 +1,7 @@
 # atomic-core [![NPM version][npm-image]][npm-url]
 Librería Javascript con POO para la creación de Componentes bajo el *Sistema de
-Diseño Atómico* para el **Proyecto Atomic**.
-
-Lee más acerca del *Proyecto Atomic* [aquí](https://github.com/luissardon/atomic-proyect/blob/master/README-es.md).
+Diseño Atómico* para el
+**[Proyecto Atomic](https://github.com/luissardon/atomic-proyect/blob/master/README-es.md)**.
 
 ## Traducciones
 * [Inglés](https://github.com/luissardon/atomic-core/blob/master/README.md)
@@ -18,8 +17,8 @@ Si no conoces nada de el *Proyecto Atomic*, te recomiendo que primero leas
 
 ### Características
 - Creación de Clases de los Componentes por medio de *[Herencia](#)*.
-- Localización de la vista enviando el *[ID del Componente (cid)](#)* a través del
-constructor de la clase.
+- Localización de la vista enviando el *[ID del Componente (cid)](#)* a través
+del constructor de la clase.
 - Manejo de la comunicación entre componentes a través del
 *[Despachador de Acciones](#)*.
 - *[Acceso global](#)* hacia los componentes.
@@ -62,9 +61,9 @@ extends default Button;
 ```
 
 #### 2º Instanciando un Componente
-Para este caso la única forma de instanciar un *Átomo* es dentro de una *Molécula* o
-un *Organismo*, por lo que en un nuevo archivo, vamos a crear la clase ***Menu*** que
-extienda de *Molecule* para conseguirlo.
+Para este caso la única forma de instanciar un *Átomo* es dentro de una
+*Molécula* o un *Organismo*, por lo que en un nuevo archivo, vamos a crear la
+clase ***Menu*** que extienda de *Molecule* para conseguirlo.
 
 ```javascript
 //- menu.js

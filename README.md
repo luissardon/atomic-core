@@ -1,8 +1,7 @@
 # atomic-core [![NPM version][npm-image]][npm-url]
 OOP Javascript Library for Building Components Under the *Atomic Design System*
-for **The Atomic Project**.
-
-Learn more about *The Atomic Project* [here](https://github.com/luissardon/atomic-proyect/blob/master/README.md).
+for
+**[The Atomic Project](https://github.com/luissardon/atomic-proyect/blob/master/README.md)**.
 
 ## Translations
 * [Spanish](https://github.com/luissardon/atomic-core/blob/master/README-es.md)
@@ -33,7 +32,8 @@ npm install atomic-core --save
 ### Making a Component
 
 #### 1º Create a Component
-Into a new file, we're going to create a ***Button*** class that extends from *Atom*.
+Into a new file, we're going to create a ***Button*** class that extends from
+*Atom*.
 
 ```javascript
 //- button.js
@@ -61,7 +61,9 @@ extends default Button;
 ```
 
 #### 2º Instantiate a Component
-For this purpose the only way to instantiate an *Atom* is within a *Molecule* or *Organism*, so into a new file, we're going to create a ***Menu*** class that extends from *Molecule* to accomplish it.
+For this purpose the only way to instantiate an *Atom* is within a *Molecule* or
+*Organism*, so into a new file, we're going to create a ***Menu*** class that
+extends from *Molecule* to accomplish it.
 
 ```javascript
 //- menu.js
