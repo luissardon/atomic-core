@@ -31,7 +31,7 @@ npm install atomic-core --save
 
 ### Making a Component
 
-#### 1º Create a Component
+#### 1st Create a Component
 Into a new file, we're going to create a ***Button*** class that extends from
 *Atom*.
 
@@ -60,7 +60,7 @@ class Button extends Atom {
 extends default Button;
 ```
 
-#### 2º Instantiate a Component
+#### 2nd Instantiate a Component
 For this purpose the only way to instantiate an *Atom* is within a *Molecule* or
 *Organism*, so into a new file, we're going to create a ***Menu*** class that
 extends from *Molecule* to accomplish it.
