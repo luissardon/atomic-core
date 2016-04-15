@@ -1,34 +1,39 @@
 # atomic-core [![NPM version][npm-image]][npm-url]
 OOP Javascript Library for Building Components Under the *Atomic Design System*
-for **The Atomic Project**.
+for
+**[The Atomic Project](https://github.com/luissardon/atomic-proyect/blob/master/README.md)**.
 
-Learn more about this project [here](#).
+## Translations
+* [Spanish](https://github.com/luissardon/atomic-core/blob/master/README-es.md)
 
 ## How it works
 
 This library works under the concept of *atomic design*, so their only purpose
-is to give us a way to manage the **functional** part in this concept for
+is to give us a way to manage the **functional** part in this concept, for
 making components.
 
 If you didn't know about *The Atomic Project* at all, I recommend you to first
-take a look at ***"Parts of a Component"*** [here](#).
+take a look at ***["Parts of an Atomic Component"](#)***.
 
 ### Features
-- Creating components classes by [*Extension*](#).
-- Targeting on his view by passing the [*Component's ID (cid)*](#) through the
+- Creating components classes by *[Inheritance](#)*.
+- Targeting on his view by passing the *[Component's ID (cid)](#)* through the
 constructor of the class.
-- Manages communication between components through [*Actions Dispatchers*](#).
-- [Global access](#) to the components.
+- Manages communication between components through *[Actions Dispatchers](#)*.
+- *[Global access](#)* to the components.
 
 ## Getting started
 
 ### Installation
+
+#### Node
 npm install atomic-core --save
 
 ### Making a Component
 
-#### 1º Create a Component
-Into a new file, we're going to create a Button Class that extends from Atom.
+#### 1st Create a Component
+Into a new file, we're going to create a ***Button*** class that extends from
+*Atom*.
 
 ```javascript
 //- button.js
@@ -55,8 +60,10 @@ class Button extends Atom {
 extends default Button;
 ```
 
-#### 2º Instantiate a Component
-For this purpose the only way to instantiate an Atom is within a Molecule or Organism, so into a new file, we're going to create a Menu Class that extends from Molecule to accomplish it.
+#### 2nd Instantiate a Component
+For this purpose the only way to instantiate an *Atom* is within a *Molecule* or
+*Organism*, so into a new file, we're going to create a ***Menu*** class that
+extends from *Molecule* to accomplish it.
 
 ```javascript
 //- menu.js
@@ -79,14 +86,16 @@ class Menu extends Molecule {
   constructor(cid) {
     super(cid);
 
-    this.button = new Button('myButton');
-    // where 'myButton' is the data-cid attribute of the component
+    this.myButton = new Button('myButton');
+    // where 'myButton' is the data-cid attribute value of the component
     // from the html view.
   }
 }
 
 extends default Menu;
 ```
+
+... currently in development...
 
 [npm-image]: https://img.shields.io/npm/v/atomic-core.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/atomic-core

@@ -11,6 +11,8 @@ import ActionDispatcher from '../actions/ActionDispatcher';
  *
  */
 
+let components = { atoms: {}, molecules: {}, organisms: {}};
+
 class UIComponent extends ActionDispatcher {
   constructor(type, cid) {
     super();
@@ -49,13 +51,22 @@ class UIComponent extends ActionDispatcher {
   }
 
   /**
+   * Global acces to components
+   *
+   * @param {cid} Component ID
+   * @return {UIComponent}
+   */
+  static getComponent(cid) {
+    return components[this.type][cid];
+  }
+
+  /**
    * Get Parent Atomic Component if exist
    *
    * @return {boolean}
    * @todo
    */
   get parent() {
-
   }
 
   /**
@@ -63,7 +74,11 @@ class UIComponent extends ActionDispatcher {
    * @return {html}
    */
   get render() {
-    return document.querySelectorAll(`[data-cid="${this['cid']}"]`);
+    try {
+      return document.querySelectorAll(`[data-cid="${this.cid}"]`);
+    } catch(e) {
+      return true;
+    }
   }
 }
 
