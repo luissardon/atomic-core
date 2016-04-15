@@ -5,7 +5,7 @@ import test from 'ava';
 
 let component = new UIComponent('abstract', 'some');
 
-test('SHOULDN\'T CHANGE THE CID OF THE COMPONENT PROPERTY', t => {
+test('SHOULDN\'T CHANGE THE CID PROPERTY OF THE COMPONENT', t => {
   try {
     component.cid = 'other';
     t.fail();
