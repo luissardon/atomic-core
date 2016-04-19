@@ -7,7 +7,7 @@ import ActionDispatcher from '../actions/ActionDispatcher';
  * The UIComponent class is the base class for all atomic view components,
  * atoms, molecules and organisms.
  *
- * @param {cid} Component cid
+ * @param {cid} Component ID
  *
  */
 
@@ -47,6 +47,11 @@ class UIComponent extends ActionDispatcher {
       writable: false
     });
 
+    /**
+     * Add component to the collection
+     *
+     */
+
     if(components[this.type + 's'])
       components[this.type + 's'][cid] = this;
 
@@ -57,16 +62,21 @@ class UIComponent extends ActionDispatcher {
    * Global acces to a particular component
    *
    * @param {cid} Component ID
-   * @return {UIComponent}
+   * @return {UIComponent} Instance of a component
+   *
    */
+
   static getComponent(cid) {
     return components[this.name.toLowerCase() + 's'][cid];
   }
 
   /**
    * Global acces to components
-   * @return {array}
+   *
+   * @return {array} Collection of components
+   *
    */
+
   static getComponents() {
     let componentsArr = [];
     let typeComponents = components[this.name.toLowerCase() + 's'];
@@ -82,7 +92,9 @@ class UIComponent extends ActionDispatcher {
 
   /**
    * Component View
+   *
    * @return {html}
+   *
    */
   get render() {
     try {
