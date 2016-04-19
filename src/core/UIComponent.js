@@ -47,17 +47,37 @@ class UIComponent extends ActionDispatcher {
       writable: false
     });
 
+    if(components[this.type + 's'])
+      components[this.type + 's'][cid] = this;
+
     this.dispatchAction(Action.ADDED);
   }
 
   /**
-   * Global acces to components
+   * Global acces to a particular component
    *
    * @param {cid} Component ID
    * @return {UIComponent}
    */
   static getComponent(cid) {
-    return components[this.type][cid];
+    return components[this.name.toLowerCase() + 's'][cid];
+  }
+
+  /**
+   * Global acces to components
+   * @return {array}
+   */
+  static getComponents() {
+    let componentsArr = [];
+    let typeComponents = components[this.name.toLowerCase() + 's'];
+
+    for (let component in typeComponents) {
+      if (typeComponents[component]) {
+        componentsArr.push(typeComponents[component]);
+      }
+    }
+
+    return componentsArr;
   }
 
   /**
