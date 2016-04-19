@@ -81,21 +81,14 @@ class UIComponent extends ActionDispatcher {
   }
 
   /**
-   * Get Parent Atomic Component if exist
-   *
-   * @return {boolean}
-   * @todo
-   */
-  get parent() {
-  }
-
-  /**
    * Component View
    * @return {html}
    */
   get render() {
     try {
-      return document.querySelectorAll(`[data-cid="${this.cid}"]`);
+      let view = document.querySelectorAll(`[data-cid="${this.cid}"]`);
+      view.setAttribute('data-atomic-type', this.type);
+      return view;
     } catch(e) {
       return true;
     }
