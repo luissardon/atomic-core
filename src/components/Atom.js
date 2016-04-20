@@ -6,7 +6,7 @@ import KeyboardAction from '../actions/KeyboardAction';
 import FormAction from '../actions/FormAction';
 import TouchAction from '../actions/TouchAction';
 
-import ComponentObject from '../core/ComponentObject';
+import ComponentObject from './ComponentObject';
 
 /**
  * The Atom class is the abstract base class for all component objects with
