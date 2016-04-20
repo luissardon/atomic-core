@@ -9,9 +9,13 @@ import {
 
 import test from 'ava';
 
-let atom = new Atom();
-let molecule = new Molecule();
-let organism = new Organism();
+class neoAtom extends Atom {}
+class neoMolecule extends Molecule {}
+class neoOrganism extends Organism {}
+
+let atom = new neoAtom();
+let molecule = new neoMolecule();
+let organism = new neoOrganism();
 
 test.cb('SHOULD CALL ONE LISTENER', t => {
   t.plan(1);

@@ -4,27 +4,26 @@ import {
   Atom,
   Molecule,
   Organism,
-  UIComponent,
+  ComponentObject,
   ActionDispatcher
 } from '../lib/index.js';
 
 import test from 'ava';
 
-let actionDispatcher = new ActionDispatcher();
-let uiComponent = new UIComponent();
-let atom = new Atom();
-let molecule = new Molecule();
-let organism = new Organism();
+class neoAtom extends Atom {}
+class neoMolecule extends Molecule {}
+class neoOrganism extends Organism {}
 
-test('UIComponent SHOULD BE AN EXTENSION OF ActionDispatcher', t => {
-  t.truthy(uiComponent.actionFlow);
+let atom = new neoAtom();
+let molecule = new neoMolecule();
+let organism = new neoOrganism();
+
+test('Atom SHOULD BE AN EXTENSION OF ComponentObject', t => {
+  t.truthy(atom instanceof ComponentObject);
 });
-test('Atom SHOULD BE AN EXTENSION OF UIComponent', t => {
-  t.truthy(atom.render);
+test('Molecule SHOULD BE AN EXTENSION OF ComponentObject', t => {
+  t.truthy(molecule instanceof ComponentObject);
 });
-test('Molecule SHOULD BE AN EXTENSION OF UIComponent', t => {
-  t.truthy(molecule.render);
-});
-test('Organism SHOULD BE AN EXTENSION OF UIComponent', t => {
-  t.truthy(organism.render);
+test('Organism SHOULD BE AN EXTENSION OF ComponentObject', t => {
+  t.truthy(organism instanceof ComponentObject);
 });
