@@ -16,7 +16,7 @@ class ActionDispatcher {
   constructor() {
 
     /**
-     * Define read-only 'actionFlow' property
+     * Indicates the action flow of the ActionDispatcher
      *
      */
 
@@ -25,7 +25,7 @@ class ActionDispatcher {
     });
 
     /**
-     * Define writable 'active' property
+     * Indicates if the ActionDispatcher is active
      *
      */
 
@@ -33,24 +33,6 @@ class ActionDispatcher {
       value: true,
       writable: true
     });
-  }
-
-  /**
-   * Get the Action Flow
-   *
-   */
-
-  get actionFlow() {
-    return this['actionFlow'];
-  }
-
-  /**
-   * Know whether the Action Dispatcher is active or not.
-   *
-   */
-
-  get active() {
-    return this['active'];
   }
 
   /**
@@ -81,11 +63,12 @@ class ActionDispatcher {
    * @param {useWeakReference} (default = false) Determines whether the
    *        reference to the listener is strong or weak.
    *
-   * @todo {ArgumentError} The listener specified is not a function.
-   *
    */
 
   addActionListener(type, listener, priority, useWeakReference) {
+    if(!Utils.isFunction(listener))
+      throw new TypeError(`${listener} is not a Function`);
+
     priority = priority || 0;
     useWeakReference = useWeakReference || false;
 
@@ -112,7 +95,7 @@ class ActionDispatcher {
     this.actionFlow[type][priority] = this.actionFlow[type][priority] || [];
 
     /**
-     * Add the listener object in to the action flow
+     * Add the listener object into the action flow
      *
      */
 
@@ -188,7 +171,11 @@ class ActionDispatcher {
    */
 
   removeActionListener(type, listener) {
+    if(!Utils.isFunction(listener))
+      throw new TypeError(`${listener} is not a Function`);
+
     let actionList = this.actionFlow[type];
+    let matches = false;
 
     for (let i in actionList) {
       let priorityList = actionList[i];
@@ -196,12 +183,17 @@ class ActionDispatcher {
       for (let i in priorityList) {
         let actionListener = priorityList[i];
 
-        if(actionListener.listener.uid === listener.uid)
+        if(actionListener.listener.uid === listener.uid) {
           delete this.actionFlow[type][actionListener.priority][i];
-
-        break;
+          matches = true;
+          break;
+        }
       }
     }
+
+    if(!matches)
+      throw new ReferenceError(`There is not listener ${listener} into the
+                                action flow`);
   }
 }
 
