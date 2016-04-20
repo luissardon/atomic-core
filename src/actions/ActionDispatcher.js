@@ -1,3 +1,5 @@
+/*jshint sub:true*/
+
 'use strict';
 
 import Action from './Action';
@@ -36,17 +38,25 @@ class ActionDispatcher {
   }
 
   /**
+   *
+   *
+   */
+  get active() {
+    return this['active'];
+  }
+
+  /**
    * Activate/Deactivate dispatch actions
    * @param {value} Boolean
    */
 
   set active(value) {
     if(this.active === false && value === true) {
-      dispatchAction(Action.ACTIVATE);
+      this.dispatchAction(Action.ACTIVATE);
     }
 
     if(this.active === true && value === false) {
-      dispatchAction(Action.DEACTIVATE);
+      this.dispatchAction(Action.DEACTIVATE);
     }
 
     this['active'] = false;
@@ -136,13 +146,14 @@ class ActionDispatcher {
    */
 
   dispatchAction(action) {
+    let listeners = [];
+
     if(this.active === false) {
       return listeners;
     }
 
-    action = typeof action === "string" ? new Action(action) : action;
+    action = action instanceof Action ? action : new Action(action);
     let actionList = this.actionFlow[action.type];
-    let listeners = [];
 
     let orderedActionList = [].concat(actionList).reverse();
     for (let i in orderedActionList) {
