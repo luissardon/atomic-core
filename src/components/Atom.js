@@ -1,5 +1,11 @@
 'use strict';
 
+import Action from '../actions/Action';
+import MouseAction from '../actions/MouseAction';
+import KeyboardAction from '../actions/KeyboardAction';
+import FormAction from '../actions/FormAction';
+import TouchAction from '../actions/TouchAction';
+
 import ComponentObject from '../core/ComponentObject';
 
 /**
@@ -13,6 +19,7 @@ import ComponentObject from '../core/ComponentObject';
  * @constructor {name} Instance Name
  *
  */
+
 class Atom extends ComponentObject {
   constructor(name) {
     super(name);
@@ -34,6 +41,8 @@ class Atom extends ComponentObject {
      * Specifies whether this object receives mouse, or other user input,
      * messages.
      *
+     * If mouseEnabled is set to false, the instance does not receive any mouse
+     * actions (or other user input actions like keyboard actions).
      */
 
     Object.defineProperty(this, 'mouseEnabled', {
@@ -65,48 +74,159 @@ class Atom extends ComponentObject {
      *
      */
 
-    this.addActionListener(Action.ADDED, subscribeEvents, 0, true);
+    this.addActionListener(Action.ADDED, this.subscribeEvents, 0, true);
   }
 
   subscribeEvents(a) {
-    this.view.addEventListener('onclick', this.onClick);
-    this.view.addEventListener('oncopy', this.onCopy);
-    this.view.addEventListener('oncut', this.onCut);
-    this.view.addEventListener('ondclick', this.onDoubleClick);
-    this.view.addEventListener('focusin', this.onFocusIn);
-    this.view.addEventListener('focusout', this.onFocusOut);
+    this.view.addEventListener('onclick',       this.handleEventListener);
+    this.view.addEventListener('ondclick',      this.handleEventListener);
+    this.view.addEventListener('onmousedown',   this.handleEventListener);
+    this.view.addEventListener('onmouseenter',  this.handleEventListener);
+    this.view.addEventListener('onmouseleave',  this.handleEventListener);
+    this.view.addEventListener('onmousemove',   this.handleEventListener);
+    this.view.addEventListener('onmouseover',   this.handleEventListener);
+    this.view.addEventListener('onmouseout',    this.handleEventListener);
+    this.view.addEventListener('onmouseup',     this.handleEventListener);
+    this.view.addEventListener('onwheel',       this.handleEventListener);
+    this.view.addEventListener('onkeydown',     this.handleEventListener);
+    this.view.addEventListener('onkeypress',    this.handleEventListener);
+    this.view.addEventListener('onkeyup',       this.handleEventListener);
+    this.view.addEventListener('onblur',        this.handleEventListener);
+    this.view.addEventListener('onchange',      this.handleEventListener);
+    this.view.addEventListener('onfocus',       this.handleEventListener);
+    this.view.addEventListener('onfocusin',     this.handleEventListener);
+    this.view.addEventListener('onfocusout',    this.handleEventListener);
+    this.view.addEventListener('oninput',       this.handleEventListener);
+    this.view.addEventListener('oninvalid',     this.handleEventListener);
+    this.view.addEventListener('onreset',       this.handleEventListener);
+    this.view.addEventListener('onsearch',      this.handleEventListener);
+    this.view.addEventListener('onselect',      this.handleEventListener);
+    this.view.addEventListener('oncopy',        this.handleEventListener);
+    this.view.addEventListener('oncut',         this.handleEventListener);
+    this.view.addEventListener('onpaste',       this.handleEventListener);
+    this.view.addEventListener('ontouchcancel', this.handleEventListener);
+    this.view.addEventListener('ontouchend',    this.handleEventListener);
+    this.view.addEventListener('ontouchmove',   this.handleEventListener);
+    this.view.addEventListener('ontouchstart',  this.handleEventListener);
+  }
 
-    /**
-     * Touch Events
-     * ontouchcancel, ontouchend, ontouchmove, ontouchstart
-     *
-     * @todo {onLongPress} Dispatched when the user presses two points of
-     * contact over the UIComponent instance on a touch-enable device
-     * @todo {onPan} Dispatched when the user moves a point of contact over the
-     * UIComponent instance on a touch-enable device
-     * @todo {onRotate} Dispatched when the user performs a rotation gesture at
-     * a point of contact with an UIComponent instance
-     * @todo {onSwipe} Dispatched when the user performs a swipe gesture at a
-     * point of contact with an UIComponent instance
-     * @todo {onTap} Dispatched when the user creates a point of contact with an
-     * UIComponent instance, then taps on a touch-enable device
-     * @todo {onZoom} Dispatched when the user performs a zoom gesture at a
-     * point of contact with an UIComponent instance
-     *
-     */
+  /**
+   * Handle Event Listener
+   * Transform DOM Event into Action
+   *
+   * @param {e} Event
+   *
+   */
 
-    this.view.addEventListener('onkeydown', this.onKeyDown);
-    this.view.addEventListener('onkeyup', this.onKeyUp);
-    this.view.addEventListener('onmousedown', this.onMouseDown);
-    this.view.addEventListener('onmousemove', this.onMouseMove);
-    this.view.addEventListener('onmouseout onmouseleave', this.onMouseOut);
-    this.view.addEventListener('onmouseover onmouseenter', this.onMouseOver);
-    this.view.addEventListener('onmouseup', this.onMouseUp);
-    this.view.addEventListener('onwheel', this.onMouseWheel);
-    this.view.addEventListener('onpaste', this.onPaste);
-    this.view.addEventListener('ontouchstart', this.onTouchBegin);
-    this.view.addEventListener('ontouchend', this.onTouchEnd);
-    this.view.addEventListener('ontouchmove', this.onTouchMove);
+  handleEventListener(e) {
+    let action = false;
+    let data = {};
+
+    switch (e.type) {
+      case 'onclick':
+        action = new MouseAction      (MouseAction    .CLICK        , data);
+        break;
+      case 'ondclick':
+        if(this.doubleClickEnabled)
+          action = new MouseAction    (MouseAction    .DOUBLE_CLICK , data);
+        break;
+      case 'onmousedown':
+        action = new MouseAction      (MouseAction    .MOUSE_DOWN   , data);
+        break;
+      case 'onmouseenter':
+        action = new MouseAction      (MouseAction    .MOUSE_ENTER  , data);
+        break;
+      case 'onmouseleave':
+        action = new MouseAction      (MouseAction    .MOUSE_LEAVE  , data);
+        break;
+      case 'onmousemove':
+        action = new MouseAction      (MouseAction    .MOUSE_MOVE   , data);
+        break;
+      case 'onmouseover':
+        action = new MouseAction      (MouseAction    .MOUSE_OVER   , data);
+        break;
+      case 'onmouseout':
+        action = new MouseAction      (MouseAction    .MOUSE_OUT    , data);
+        break;
+      case 'onmouseup':
+        action = new MouseAction      (MouseAction    .MOUSE_UP     , data);
+        break;
+      case 'onwheel':
+        action = new MouseAction      (MouseAction    .WHEEL        , data);
+        break;
+      case 'onkeydown':
+        action = new KeyboardAction   (KeyboardAction .KEY_DOWN     , data);
+        break;
+      case 'onkeypress':
+        action = new KeyboardAction   (KeyboardAction .KEY_PRESS    , data);
+        break;
+      case 'onkeyup':
+        action = new KeyboardAction   (KeyboardAction .KEY_UP       , data);
+        break;
+      case 'onblur':
+        action = new FormAction       (FormAction     .BLUR         , data);
+        break;
+      case 'onchange':
+        action = new FormAction       (FormAction     .CHANGE       , data);
+        break;
+      case 'onfocus':
+        action = new FormAction       (FormAction     .FOCUS        , data);
+        break;
+      case 'onfocusin':
+        action = new FormAction       (FormAction     .FOCUS_IN     , data);
+        break;
+      case 'onfocusout':
+        action = new FormAction       (FormAction     .FOCUS_OUT    , data);
+        break;
+      case 'oninput':
+        action = new FormAction       (FormAction     .INPUT        , data);
+        break;
+      case 'oninvalid':
+        action = new FormAction       (FormAction     .INVALID      , data);
+        break;
+      case 'onreset':
+        action = new FormAction       (FormAction     .RESET        , data);
+        break;
+      case 'onsearch':
+        action = new FormAction       (FormAction     .SEARCH       , data);
+        break;
+      case 'onselect':
+        action = new Action           (Action         .SELECT       , data);
+        break;
+      case 'oncopy':
+        action = new Action           (Action         .COPY         , data);
+        break;
+      case 'oncut':
+        action = new Action           (Action         .CUT          , data);
+        break;
+      case 'onpaste':
+        action = new Action           (Action         .PASTE        , data);
+        break;
+      case 'ontouchcancel':
+        action = new TouchAction      (TouchAction    .TOUCH_CANCEL , data);
+        break;
+      case 'ontouchend':
+        action = new TouchAction      (TouchAction    .TOUCH_END    , data);
+        break;
+      case 'ontouchmove':
+        action = new TouchAction      (TouchAction    .TOUCH_MOVE   , data);
+        break;
+      case 'ontouchstart':
+        action = new TouchAction      (TouchAction    .TOUCH_BEGIN  , data);
+        break;
+    }
+
+    if(action) {
+      if(!this.mouseEnabled) {
+        if(action instanceof MouseAction ||
+           action instanceof KeyboardAction ||
+           action instanceof FormAction) {
+           return;
+        }
+      }
+
+      this.dispatchAction(action);
+    }
   }
 }
 
