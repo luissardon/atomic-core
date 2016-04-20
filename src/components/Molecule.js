@@ -1,6 +1,6 @@
 'use strict';
 
-import UIComponent from '../core/UIComponent';
+import Atom from './Atom';
 
 /**
  * The Molecule class is the base class for all molecule components, defining
@@ -9,9 +9,9 @@ import UIComponent from '../core/UIComponent';
  * @author Luis Sardon
  *
  */
-class Molecule extends UIComponent {
-  constructor(cid) {
-    super('molecule', cid);
+class Molecule extends Atom {
+  constructor(name) {
+    super(name);
   }
 }
 

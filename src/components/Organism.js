@@ -1,6 +1,6 @@
 'use strict';
 
-import UIComponent from '../core/UIComponent';
+import Molecule from './Molecule';
 
 /**
  * The Organism class is the base class for all organism components, defining
@@ -9,9 +9,9 @@ import UIComponent from '../core/UIComponent';
  * @author Luis Sardon
  *
  */
-class Organism extends UIComponent {
-  constructor(cid) {
-    super('organism', cid);
+class Organism extends Molecule {
+  constructor(name) {
+    super(name);
   }
 }
 
