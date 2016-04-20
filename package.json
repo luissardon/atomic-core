@@ -4,7 +4,7 @@
   "engines": {
     "node": ">=5.10.1"
   },
-  "description": "OOP Javascript Library for Building Components Under the Atomic Design System",
+  "description": "OOP Javascript Library for Building Components Under the Atomic Design System for The Atomic Project",
   "main": "lib/index.js",
   "scripts": {
     "test": "npm run compile && ava -v",
