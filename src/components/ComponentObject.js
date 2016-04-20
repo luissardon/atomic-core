@@ -1,3 +1,5 @@
+/*jslint browser:true */
+
 'use strict';
 
 import ActionDispatcher from '../actions/ActionDispatcher';
@@ -47,11 +49,14 @@ class ComponentObject extends ActionDispatcher {
      *
      */
 
-    Object.defineProperty(this, 'view', {
-      value: document.querySelectorAll(`[data-name="${this.name}"]`)
-          || this.render,
-      writable: false
-    });
+    try {
+      Object.defineProperty(this, 'view', {
+        value: document.querySelectorAll(`[data-name="${this.name}"]`) || this.render,
+        writable: false
+      });
+    } catch (e) {
+      console.log('Error', e);
+    }
   }
 
   /**
