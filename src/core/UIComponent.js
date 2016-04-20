@@ -4,18 +4,33 @@ import Action from '../actions/Action';
 import ActionDispatcher from '../actions/ActionDispatcher';
 
 /**
- * The UIComponent class is the base class for all atomic view components,
- * atoms, molecules and organisms.
+ * The UIComponent class is the base class for all components that can be placed
+ * on the component list. The component list manages all components. Use the
+ * Molecule class to arrange the component objects in the component list.
  *
- * @param {cid} Component ID
+ * UIComponent is an abstract class; therefore, you cannot call UIComponent
+ * directly. Invoking new UIComponent throws an ArgumentError exception.
+ *
+ * All component objects inherit from UIComponent class.
+ *
+ * @param {cid} UIComponent ID
  *
  */
 
-let components = { atoms: {}, molecules: {}, organisms: {}};
+let componentList = { atoms: {}, molecules: {}, organisms: {}};
 
 class UIComponent extends ActionDispatcher {
   constructor(type, cid) {
     super();
+
+    /**
+     * Define 'added' property
+     *
+     */
+
+    Object.defineProperty(this, 'added', {
+      value: false
+    });
 
     /**
      * Define read-only 'type' property
@@ -52,22 +67,20 @@ class UIComponent extends ActionDispatcher {
      *
      */
 
-    if(components[this.type + 's'])
-      components[this.type + 's'][cid] = this;
-
-    this.dispatchAction(Action.ADDED);
+    if(componentList[this.type + 's'])
+      componentList[this.type + 's'][cid] = this;
   }
 
   /**
    * Global acces to a particular component
    *
-   * @param {cid} Component ID
+   * @param {cid} UIComponent ID
    * @return {UIComponent} Instance of a component
    *
    */
 
   static getComponent(cid) {
-    return components[this.name.toLowerCase() + 's'][cid];
+    return componentList[this.name.toLowerCase() + 's'][cid];
   }
 
   /**
@@ -79,11 +92,11 @@ class UIComponent extends ActionDispatcher {
 
   static getComponents() {
     let collection = [];
-    let collectionType = components[this.name.toLowerCase() + 's'];
+    let collectionType = componentList[this.name.toLowerCase() + 's'];
 
     for (let component in collectionType) {
       if (collectionType[component]) {
-        collection.push(typeComponents[component]);
+        collection.push(typeUIComponent[component]);
       }
     }
 
@@ -91,7 +104,33 @@ class UIComponent extends ActionDispatcher {
   }
 
   /**
-   * Component View
+   * Get Added State
+   *
+   * @return {boolean} true if the UIComponent was added
+   *
+   */
+
+  get added() {
+    return this['added'];
+  }
+
+  /**
+   * Set Added State, only works if the param value is true and the current
+   * added state value is false
+   *
+   * @param {value} Boolean
+   *
+   */
+
+  set added(value) {
+    if(value === true && this['added'] === false) {
+      this['added'] = value;
+      this.dispatchAction(Action.ADDED);
+    }
+  }
+
+  /**
+   * UIComponent View
    *
    * @return {html}
    *
