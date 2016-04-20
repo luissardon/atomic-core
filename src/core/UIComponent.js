@@ -13,14 +13,14 @@ import ActionDispatcher from '../actions/ActionDispatcher';
  *
  * All component objects inherit from UIComponent class.
  *
- * @param {cid} UIComponent ID
+ * @param {name} UIComponent Name
  *
  */
 
 let componentList = { atoms: {}, molecules: {}, organisms: {}};
 
 class UIComponent extends ActionDispatcher {
-  constructor(type, cid) {
+  constructor(type, name) {
     super();
 
     /**
@@ -43,12 +43,12 @@ class UIComponent extends ActionDispatcher {
     });
 
     /**
-     * Define read-only 'cid' property
+     * Define read-only 'name' property
      *
      */
 
-    Object.defineProperty(this, 'cid', {
-      value: cid,
+    Object.defineProperty(this, 'name', {
+      value: name,
       writable: false
     });
 
@@ -68,19 +68,19 @@ class UIComponent extends ActionDispatcher {
      */
 
     if(componentList[this.type + 's'])
-      componentList[this.type + 's'][cid] = this;
+      componentList[this.type + 's'][name] = this;
   }
 
   /**
    * Global acces to a particular component
    *
-   * @param {cid} UIComponent ID
+   * @param {name} UIComponent ID
    * @return {UIComponent} Instance of a component
    *
    */
 
-  static getComponent(cid) {
-    return componentList[this.name.toLowerCase() + 's'][cid];
+  static getComponent(name) {
+    return componentList[this.name.toLowerCase() + 's'][name];
   }
 
   /**
@@ -138,7 +138,7 @@ class UIComponent extends ActionDispatcher {
 
   get render() {
     try {
-      let view = document.querySelectorAll(`[data-cid="${this.cid}"]`);
+      let view = document.querySelectorAll(`[data-name="${this.name}"]`);
       return view;
     } catch(e) {
       return true;
