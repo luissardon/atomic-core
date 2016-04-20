@@ -78,16 +78,16 @@ class UIComponent extends ActionDispatcher {
    */
 
   static getComponents() {
-    let componentsArr = [];
-    let typeComponents = components[this.name.toLowerCase() + 's'];
+    let collection = [];
+    let collectionType = components[this.name.toLowerCase() + 's'];
 
-    for (let component in typeComponents) {
-      if (typeComponents[component]) {
-        componentsArr.push(typeComponents[component]);
+    for (let component in collectionType) {
+      if (collectionType[component]) {
+        collection.push(typeComponents[component]);
       }
     }
 
-    return componentsArr;
+    return collection;
   }
 
   /**
@@ -96,10 +96,10 @@ class UIComponent extends ActionDispatcher {
    * @return {html}
    *
    */
+
   get render() {
     try {
       let view = document.querySelectorAll(`[data-cid="${this.cid}"]`);
-      view.setAttribute('data-atomic-type', this.type);
       return view;
     } catch(e) {
       return true;
