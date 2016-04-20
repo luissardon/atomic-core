@@ -3,15 +3,16 @@
 import ActionDispatcher from '../actions/ActionDispatcher';
 
 /**
- * The UIComponent class is the base class for all components that can be placed
- * on the component list. The component list manages all components. Use the
- * UIComponentContainer class to arrange the component objects in the component
- * list.
+ * The ComponentObject class is the base class for all components that can be
+ * placed on the component list. The component list manages all components. Use
+ * the ComponentObjectContainer class to arrange the component objects in the
+ * component list.
  *
- * UIComponent is an abstract class; therefore, you cannot call UIComponent
- * directly. Invoking new UIComponent throws an ArgumentError exception.
+ * ComponentObject is an abstract class; therefore, you cannot call
+ * ComponentObject directly. Invoking new ComponentObject() throws an
+ * ArgumentError exception.
  *
- * All component objects inherit from UIComponent class.
+ * All component objects inherit from ComponentObject class.
  *
  * @constructor {name} Instance Name
  *
@@ -19,19 +20,20 @@ import ActionDispatcher from '../actions/ActionDispatcher';
 
 let componentList = { atoms: {}, molecules: {}, organisms: {}};
 
-class UIComponent extends ActionDispatcher {
+class ComponentObject extends ActionDispatcher {
   constructor(name) {
     super();
 
     /**
-     * Indicates the UIComponentContainer that contains this UIComponent.
+     * Indicates the ComponentObjectContainer that contains this
+     * ComponentObject.
      *
      */
 
     this.parent = undefined;
 
     /**
-     * Indicates the instance name of the UIComponent
+     * Indicates the instance name of the ComponentObject
      *
      */
 
@@ -60,8 +62,8 @@ class UIComponent extends ActionDispatcher {
    */
 
   get render() {
-    throw new Error('There is no component view to render');
+    throw new Error('There is no html view to render');
   }
 }
 
-export default UIComponent;
+export default ComponentObject;
