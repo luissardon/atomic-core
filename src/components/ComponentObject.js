@@ -2,6 +2,7 @@
 
 'use strict';
 
+import Utils from '../utils/Utils';
 import ActionDispatcher from '../actions/ActionDispatcher';
 
 /**
@@ -49,14 +50,10 @@ class ComponentObject extends ActionDispatcher {
      *
      */
 
-    try {
-      Object.defineProperty(this, 'view', {
-        value: document.querySelectorAll(`[data-name="${this.name}"]`) || this.render,
-        writable: false
-      });
-    } catch (e) {
-      console.log('Error', e);
-    }
+    Object.defineProperty(this, 'view', {
+      value: Utils.hasDocument() ? document.querySelectorAll(`[data-name="${this.name}"]`) || this.render : false,
+      writable: false
+    });
   }
 
   /**
