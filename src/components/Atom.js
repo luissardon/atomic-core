@@ -1,12 +1,11 @@
 'use strict';
 
-import Action from '../actions/Action';
-import MouseAction from '../actions/MouseAction';
-import KeyboardAction from '../actions/KeyboardAction';
-import FormAction from '../actions/FormAction';
-import TouchAction from '../actions/TouchAction';
-
-import ComponentObject from './ComponentObject';
+import Action           from '../actions/Action';
+import MouseAction      from '../actions/MouseAction';
+import KeyboardAction   from '../actions/KeyboardAction';
+import FormAction       from '../actions/FormAction';
+import TouchAction      from '../actions/TouchAction';
+import ComponentObject  from './ComponentObject';
 
 /**
  * The Atom class is the abstract base class for all component objects with
@@ -14,7 +13,7 @@ import ComponentObject from './ComponentObject';
  * device.
  *
  * You cannot instantiate the Atom class directly. A call to the new Atom()
- * constructor throws an ArgumentError exception.
+ * constructor throws an TypeError exception.
  *
  * @constructor {name} Instance Name
  *
@@ -33,9 +32,7 @@ class Atom extends ComponentObject {
      *
      */
 
-    Object.defineProperty(this, 'doubleClickEnabled', {
-      value: true
-    });
+    this.doubleClickEnabled = true;
 
     /**
      * Specifies whether this object receives mouse, or other user input,
@@ -45,18 +42,14 @@ class Atom extends ComponentObject {
      * actions (or other user input actions like keyboard actions).
      */
 
-    Object.defineProperty(this, 'mouseEnabled', {
-      value: true
-    });
+    this.mouseEnabled = true;
 
     /**
      * Specifies whether this object is in the tab order.
      *
      */
 
-    Object.defineProperty(this, 'tabEnabled', {
-      value: false
-    });
+    this.tabEnabled = false;
 
     /**
      * Specifies the tab ordering.
@@ -65,9 +58,7 @@ class Atom extends ComponentObject {
      *
      */
 
-    Object.defineProperty(this, 'tabIndex', {
-      value: -1
-    });
+    this.tabIndex = -1;
 
     /**
      * Subscribe to DOM events after adding the component
@@ -75,6 +66,15 @@ class Atom extends ComponentObject {
      */
 
     this.addActionListener(Action.ADDED, this.subscribeEvents, 0, true);
+  }
+
+  /**
+   * Component type
+   *
+   */
+
+  get type() {
+    return "Atom";
   }
 
   subscribeEvents(a) {
