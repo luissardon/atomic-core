@@ -3,7 +3,7 @@
 'use strict';
 
 import Action from './Action';
-import Utils from '../utils/Utils';
+import Utils  from '../utils/Utils';
 
 /**
  * The ActionDispatcher class is the base class for all classes that dispatch
@@ -203,8 +203,7 @@ class ActionDispatcher {
     }
 
     if(!matches)
-      throw new ReferenceError(`There is not listener ${listener} into the
-                                action flow`);
+      throw new ReferenceError(`There is not listener ${listener} into the action flow`);
   }
 }
 
