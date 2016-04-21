@@ -1,3 +1,5 @@
+/*jslint browser:true */
+
 'use strict';
 
 /**
@@ -23,10 +25,22 @@ class Utils {
    * @param {value} Object
    * @return {boolean} true if it matches
    */
-  
+
   static isFunction(value) {
     let getType = {};
     return value && getType.toString.call(value) === '[object Function]';
+  }
+
+  /**
+   * Check if the value es a document instance
+   *
+   */
+  static hasDocument() {
+    try {
+      return !!document;
+    } catch (e) {
+      return false;
+    }
   }
 }
 
