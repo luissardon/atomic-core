@@ -18,12 +18,12 @@ let atom = new neoAtom();
 let molecule = new neoMolecule();
 let organism = new neoOrganism();
 
-test('Atom SHOULD BE AN EXTENSION OF ComponentObject', t => {
+test('ATOM SHOULD BE AN INSTANCE OF ComponentObject', t => {
   t.truthy(atom instanceof ComponentObject);
 });
-test('Molecule SHOULD BE AN EXTENSION OF ComponentObject', t => {
+test('MOLECULE SHOULD BE AN INSTANCE OF ComponentObject', t => {
   t.truthy(molecule instanceof ComponentObject);
 });
-test('Organism SHOULD BE AN EXTENSION OF ComponentObject', t => {
+test('ORGANISM SHOULD BE AN INSTANCE OF ComponentObject', t => {
   t.truthy(organism instanceof ComponentObject);
 });
