@@ -2,7 +2,7 @@
 
 'use strict';
 
-import Utils from '../utils/Utils';
+import Utils            from '../utils/Utils';
 import ActionDispatcher from '../actions/ActionDispatcher';
 
 /**
@@ -13,7 +13,7 @@ import ActionDispatcher from '../actions/ActionDispatcher';
  *
  * ComponentObject is an abstract class; therefore, you cannot call
  * ComponentObject directly. Invoking new ComponentObject() throws an
- * ArgumentError exception.
+ * TypeError exception.
  *
  * All component objects inherit from ComponentObject class.
  *
@@ -27,13 +27,19 @@ class ComponentObject extends ActionDispatcher {
   constructor(name) {
     super();
 
+    if (new.target === ComponentObject) {
+      throw new TypeError(`Yout cannot instantiate the ComponentObject class directly`);
+    }
+
     /**
      * Indicates the ComponentObjectContainer that contains this
      * ComponentObject.
      *
      */
 
-    this.parent = undefined;
+    Object.defineProperty(this, 'parent', {
+      value: undefined
+    });
 
     /**
      * Indicates the instance name of the ComponentObject
@@ -41,8 +47,7 @@ class ComponentObject extends ActionDispatcher {
      */
 
     Object.defineProperty(this, 'name', {
-      value: name,
-      writable: false
+      value: name
     });
 
     /**
@@ -51,9 +56,17 @@ class ComponentObject extends ActionDispatcher {
      */
 
     Object.defineProperty(this, 'view', {
-      value: Utils.hasDocument() ? document.querySelectorAll(`[data-name="${this.name}"]`) || this.render : false,
-      writable: false
+      value: Utils.isClient() ? (document.querySelectorAll(`[data-name="${this.name}"]`) || this.render) : undefined,
     });
+  }
+
+  /**
+   * Component type
+   *
+   */
+  
+  get type() {
+    return undefined;
   }
 
   /**
