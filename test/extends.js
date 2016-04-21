@@ -21,9 +21,23 @@ let organism = new neoOrganism();
 test('ATOM SHOULD BE AN INSTANCE OF ComponentObject', t => {
   t.truthy(atom instanceof ComponentObject);
 });
+
 test('MOLECULE SHOULD BE AN INSTANCE OF ComponentObject', t => {
   t.truthy(molecule instanceof ComponentObject);
 });
+
 test('ORGANISM SHOULD BE AN INSTANCE OF ComponentObject', t => {
   t.truthy(organism instanceof ComponentObject);
+});
+
+test('ATOM INSTANCE type PROPERTY SHOULD BE "Atom"', t => {
+	t.deepEqual(atom.type, 'Atom');
+});
+
+test('MOLECULE INSTANCE type PROPERTY SHOULD BE "Molecule"', t => {
+	t.deepEqual(molecule.type, 'Molecule');
+});
+
+test('ORGANISM INSTANCE type PROPERTY SHOULD BE "Organism"', t => {
+	t.deepEqual(organism.type, 'Organism');
 });
