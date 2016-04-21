@@ -32,10 +32,11 @@ class Utils {
   }
 
   /**
-   * Check if the value es a document instance
+   * Check if we are on the client side
    *
    */
-  static hasDocument() {
+
+  static isClient() {
     try {
       return !!document;
     } catch (e) {
