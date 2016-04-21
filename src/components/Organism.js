@@ -13,6 +13,15 @@ class Organism extends Molecule {
   constructor(name) {
     super(name);
   }
+
+  /**
+   * Component type
+   *
+   */
+
+  get type() {
+    return "Organism";
+  }
 }
 
 export default Organism;
