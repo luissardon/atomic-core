@@ -1,3 +1,6 @@
+/*jshint sub:true*/
+/*jshint -W078*/
+
 'use strict';
 
 import Action           from '../actions/Action';
@@ -67,6 +70,28 @@ class Atom extends ComponentObject {
 
     this.addActionListener(Action.ADDED, this.subscribeEvents, 0, true);
   }
+
+  /**
+   * Parent instance
+   *
+   */
+
+   get parent() {
+     return this._parent;
+   }
+
+   /**
+    * Autoremove Component from parent before moving
+    *
+    */
+
+   set parent(value) {
+     if(!!this._parent) {
+       this._parent.removeChild(this);
+     }
+
+     this._parent = value;
+   }
 
   /**
    * Component type
