@@ -1,4 +1,5 @@
 /*jslint browser:true */
+/*jshint sub:true*/
 
 'use strict';
 
@@ -37,8 +38,10 @@ class ComponentObject extends ActionDispatcher {
      *
      */
 
-    Object.defineProperty(this, 'parent', {
-      value: undefined
+    Object.defineProperty(this, '_parent', {
+      value: undefined,
+      enumerable: false,
+      writable: true
     });
 
     /**
@@ -64,7 +67,7 @@ class ComponentObject extends ActionDispatcher {
    * Component type
    *
    */
-  
+
   get type() {
     return undefined;
   }
