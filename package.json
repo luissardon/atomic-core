@@ -7,7 +7,7 @@
   "description": "OOP Javascript Library for Building Components Under the Atomic Design System for The Atomic Project",
   "main": "lib/index.js",
   "scripts": {
-    "test": "npm run compile && ava -v",
+    "test": "npm run compile && ava -v -s",
     "compile": "babel --optional runtime -d lib/ src/",
     "prepublish": "npm run test"
   },
