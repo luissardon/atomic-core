@@ -20,12 +20,12 @@ let organism = new neoOrganism();
 test.cb('SHOULD CALL ONE LISTENER', t => {
   t.plan(1);
 
-  atom.addActionListener('TEST', (a) => {
-    t.deepEqual(a.type, 'TEST');
+  atom.addActionListener(Action.SELECT, (a) => {
+    t.deepEqual(a.type, Action.SELECT);
     t.end();
   }, 0, true);
 
-  atom.dispatchAction('TEST');
+  atom.dispatchAction(Action.SELECT);
 });
 
 test.cb('SHOULDN\'T CALL A LISTENER', t => {
