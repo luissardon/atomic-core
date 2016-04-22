@@ -90,13 +90,14 @@ class Atom extends ComponentObject {
     *
     */
 
-   set parent(value) {
-     if(!!this._parent) {
-       this._parent.removeChild(this);
-     }
+  set parent(value) {
+    if(!!this._parent) {
+      if(this._parent.getChildByName(this.name))
+        this._parent.removeChild(this);
+    }
 
-     this._parent = value;
-   }
+    this._parent = value;
+  }
 
   /**
    * Component type
