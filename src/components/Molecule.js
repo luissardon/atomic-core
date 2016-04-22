@@ -1,6 +1,6 @@
 'use strict';
 
-import Atom     from './Atom';
+import Atom from './Atom';
 
 /**
  * The Molecule class is the base class for all component objects that can serve
@@ -81,7 +81,26 @@ class Molecule extends Atom {
   }
 
   /**
-   * Get Atom child by its name
+   * Determines whether the specified component object is a child of the
+   * Component instance or the instance itself.
+   *
+   * @param {child} The child object to test.
+   * @return {boolean} true if the child object is a child of the Component or
+   * the container itself; otherwise false.
+   */
+
+  contains(child) {
+    if(child === this)
+      return true;
+
+    if(child instanceof Atom && child.parent === this)
+      return true;
+
+    return false;
+  }
+
+  /**
+   * Returns the child component object that exists with the specified name.
    *
    * @parem {name} Component name
    */
@@ -118,13 +137,17 @@ class Molecule extends Atom {
   }
 
   /**
-   * Adds a child Atom instance to this Molecule instance.
+   * Adds a child Component instance to this Component instance.
    *
    */
 
   addChild(child) {
     if(this.childCanBeInstantiated(child)) {
+      // TODO: append child.view to this.view
+
       child.parent = this;
+      child.dispatchAction(Action.ADDED);
+
       this.children[child.name] = child;
       return child;
     }
@@ -139,6 +162,10 @@ class Molecule extends Atom {
    */
 
   removeChild(child) {
+    // TODO: remove child.view from this.view
+
+    child.dispatchAction(Action.REMOVED);
+
     delete this.children[child.name];
   }
 }
