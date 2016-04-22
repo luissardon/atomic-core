@@ -19,7 +19,10 @@ import ComponentObject  from './ComponentObject';
  * You cannot instantiate the Atom class directly. A call to the new Atom()
  * constructor throws an TypeError exception.
  *
- * @constructor {name} Instance Name
+ * @constructor {name} The name of the component, which it will be used to
+ * locate their html view in the DOM.
+ *
+ * @author Luis Sardon
  *
  */
 

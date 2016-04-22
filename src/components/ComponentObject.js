@@ -18,7 +18,10 @@ import ActionDispatcher from '../actions/ActionDispatcher';
  *
  * All component objects inherit from ComponentObject class.
  *
- * @constructor {name} Instance Name
+ * @constructor {name} The name of the component, which it will be used to
+ * locate their html view in the DOM.
+ *
+ * @author Luis Sardon
  *
  */
 
@@ -39,7 +42,7 @@ class ComponentObject extends ActionDispatcher {
      */
 
     Object.defineProperty(this, '_parent', {
-      value: undefined,
+      value: null,
       enumerable: false,
       writable: true
     });
