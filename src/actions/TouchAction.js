@@ -8,7 +8,10 @@ const TOUCH_BEGIN   = 'touchBegin';
 /**
  * TODO: TouchAction description
  *
- * @param {type} The type of the action, accessible as TouchAction.type.
+ * @constructor {type} The type of the action, accessible as TouchAction.type.
+ *
+ * @author Luis Sardon
+ *
  */
 
 class TouchAction {

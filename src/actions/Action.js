@@ -23,7 +23,10 @@ const SELECT      = 'select';
  * The Action class is used as the base class for the creation of Action objects,
  * which are passed as parameters to action listeners when an action occurs.
  *
- * @param {type} The type of the action, accessible as Action.type.
+ * @constructor {type} The type of the action, accessible as Action.type.
+ *
+ * @author Luis Sardon
+ *
  */
 
 class Action {

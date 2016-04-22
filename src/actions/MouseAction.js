@@ -18,7 +18,10 @@ const WHEEL 				= 'mouseWheel';
  *
  * TODO: nested nodes
  *
- * @param {type} The type of the action, accessible as MouseAction.type.
+ * @constructor {type} The type of the action, accessible as MouseAction.type.
+ *
+ * @author Luis Sardon
+ *
  */
 
 class MouseAction {

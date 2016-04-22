@@ -13,7 +13,9 @@ const SEARCH    = 'search';
 /**
  * TODO: FormAction description
  *
- * @param {type} The type of the action, accessible as FormAction.type.
+ * @constructor {type} The type of the action, accessible as FormAction.type.
+ *
+ * @author Luis Sardon
  */
 
 class FormAction {

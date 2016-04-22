@@ -6,9 +6,12 @@ const KEY_UP    = 'KeyUp';
 
 /**
  * A KeyboardAction object is dispatched in response to user input through a
- keyboard.
+ * keyboard.
  *
- * @param {type} The type of the action, accessible as KeyboardAction.type.
+ * @constructor {type} The type of the action, accessible as KeyboardAction.type.
+ *
+ * @author Luis Sardon
+ *
  */
 
 class KeyboardAction {
