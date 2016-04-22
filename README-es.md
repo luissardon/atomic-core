@@ -17,7 +17,7 @@ Si no conoces nada de el *Proyecto Atomic*, te recomiendo que primero leas
 
 ### Características
 - Creación de Clases de los Componentes por medio de *[Herencia](#)*.
-- Localización de la vista enviando el *[ID del Componente (cid)](#)* a través
+- Localización de la vista enviando el *[Name del Componente (name)](#)* a través
 del constructor de la clase.
 - Manejo de la comunicación entre componentes a través del
 *[Despachador de Acciones](#)*.
@@ -52,8 +52,8 @@ import Atom from 'atomic-core';
  */
 
 class Button extends Atom {
-  constructor(cid) {
-    super(cid);
+  constructor(name) {
+    super(name);
   }
 }
 
@@ -83,11 +83,11 @@ import Button from 'button.js';
  */
 
 class Menu extends Molecule {
-  constructor(cid) {
-    super(cid);
+  constructor(name) {
+    super(name);
 
     this.miBoton = new Button('miBoton');
-    // Donde 'miBoton' es el valor del atributo data-cid del componente
+    // Donde 'miBoton' es el valor del atributo data-name del componente
     // desde la vista html.
   }
 }

@@ -17,7 +17,7 @@ take a look at ***["Parts of an Atomic Component"](#)***.
 
 ### Features
 - Creating components classes by *[Inheritance](#)*.
-- Targeting on his view by passing the *[Component's ID (cid)](#)* through the
+- Targeting on his view by passing the *[Component's Name (name)](#)* through the
 constructor of the class.
 - Manages communication between components through *[Actions Dispatchers](#)*.
 - *[Global access](#)* to the components.
@@ -52,8 +52,8 @@ import Atom from 'atomic-core';
  */
 
 class Button extends Atom {
-  constructor(cid) {
-    super(cid);
+  constructor(name) {
+    super(name);
   }
 }
 
@@ -83,11 +83,11 @@ import Button from 'button.js';
  */
 
 class Menu extends Molecule {
-  constructor(cid) {
-    super(cid);
+  constructor(name) {
+    super(name);
 
     this.myButton = new Button('myButton');
-    // where 'myButton' is the data-cid attribute value of the component
+    // where 'myButton' is the data-name attribute value of the component
     // from the html view.
   }
 }
