@@ -3,6 +3,7 @@
 
 'use strict';
 
+import Utils            from '../utils/Utils';
 import Action           from '../actions/Action';
 import MouseAction      from '../actions/MouseAction';
 import KeyboardAction   from '../actions/KeyboardAction';
@@ -68,7 +69,8 @@ class Atom extends ComponentObject {
      *
      */
 
-    this.addActionListener(Action.ADDED, this.subscribeEvents, 0, true);
+    if(Utils.isClient())
+      this.addActionListener(Action.ADDED, this.subscribeEvents, 0, true);
   }
 
   /**
