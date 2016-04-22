@@ -17,7 +17,7 @@ Si no conoces nada de el *Proyecto Atomic*, te recomiendo que primero leas
 
 ### Características
 - Creación de Clases de los Componentes por medio de *[Herencia](#)*.
-- Localización de la vista enviando el *[Name del Componente (name)](#)* a través
+- Localización de la vista enviando el *[Nombre del Componente (name)](#)* a través
 del constructor de la clase.
 - Manejo de la comunicación entre componentes a través del
 *[Despachador de Acciones](#)*.
