@@ -224,11 +224,11 @@ class Molecule extends Atom {
 
     index = (index || index === 0) ? index : this.cachedChildren.length;
 
-    if(index > this.cachedChildren.length || index < 0)
+    if(index > this.cachedChildren.length)
       throw new RangeError(`The index "${index}" position does not exist in the child list`);
 
-    if(index < this.cachedChildren.length)
-      this.cachedChildren.push(index, 0, undefined);
+    if(index < this.cachedChildren.length && index >= 0)
+      this.cachedChildren.splice(index, 0, undefined);
 
     for (let i in this.cachedChildren) {
       let child = this.cachedChildren[i];
@@ -285,7 +285,7 @@ class Molecule extends Atom {
    */
 
   getChildAt(index) {
-    if(index >= this.cachedChildren.length || index < 0)
+    if(index >= this.numChildren || index < 0)
       throw new RangeError(`The index "${index}" position does not exist in the child list`);
 
     return this.cachedChildren[index];
@@ -354,7 +354,7 @@ class Molecule extends Atom {
     delete this.children[child.name];
     child.parent = null;
 
-    this.updateChildrenOrder();
+    this.updateChildrenOrder(-1);
 
     child.dispatchAction(Action.REMOVED);
 
