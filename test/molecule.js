@@ -56,6 +56,6 @@ test('SHOULD PASS ATOM INSTANCE FROM MOLECULE INSTANCE TO ANOTHER MOLECULE INSTA
   t.deepEqual(atom.parent, molecule_2);
 });
 
-test('ATOM INSTANCE SHOULD BE IN MOLECULE_2', t => {
-  t.deepEqual(molecule_2.getChildByName('myAtom'), atom);
+test('MOLECULE_2 INSTANCE SHOULD CONTAIN ATOM INSTANCE', t => {
+  t.true(molecule_2.contains(atom));
 });
