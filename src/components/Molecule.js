@@ -1,6 +1,7 @@
 'use strict';
 
-import Atom from './Atom';
+import Action from '../actions/Action';
+import Atom   from './Atom';
 
 /**
  * The Molecule class is the base class for all component objects that can serve
