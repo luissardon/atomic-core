@@ -5,6 +5,8 @@
 /**
  * Utilities
  *
+ * @author Luis Sardon
+ *
  */
 
 class Utils {
