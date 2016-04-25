@@ -13,6 +13,7 @@ class neoOrganism extends Organism {}
 
 let atom = new neoAtom('myAtom');
 let atom_2 = new neoAtom('myAtom2');
+let atom_3 = new neoAtom('myAtom3');
 let molecule = new neoMolecule('myMolecule');
 let molecule_2 = new neoMolecule('myMolecule_2');
 let organism = new neoOrganism('myOrganism');
@@ -66,12 +67,30 @@ test.serial('MOLECULE_2 INSTANCE SHOULD CONTAIN ATOM INSTANCE', t => {
   t.true(molecule_2.contains(atom));
 });
 
-test.cb.serial('SHOULD GET ATOM INSTANCE THROUGH MOLECULA INSTANCE', t => {
-  t.plan(3);
-
+test.serial('SHOULD GET ATOM INSTANCE BY ITS NAME THROUGH MOLECULA INSTANCE', t => {
   t.deepEqual(molecule_2.getChildByName(atom.name), atom);
+});
+
+test.serial('SHOULD GET ATOM INSTANCE BY ITS POSITION THROUGH MOLECULA INSTANCE', t => {
   t.deepEqual(molecule_2.getChildAt(1), atom);
-  t.deepEqual(molecule_2.getChildAt(0), atom_2);
+});
+
+test.cb.serial('SHOULD REMOVE ALL MOLECULE CHILDREN', t => {
+  t.plan(2);
+  t.deepEqual(molecule_2.numChildren, 2);
+
+  molecule_2.removeChildren();
+  t.deepEqual(molecule_2.numChildren, 0);
 
   t.end();
+});
+
+test.serial('SHOULD CHANGE ATOM INDEX', t => {
+  molecule_2.addChild(atom);
+  molecule_2.addChild(atom_2);
+  molecule_2.addChild(atom_3);
+
+  molecule_2.setChildIndex(atom_3, 0);
+
+  t.deepEqual(molecule_2.getChildAt(0), atom_3);
 });
