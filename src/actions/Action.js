@@ -23,15 +23,47 @@ const SELECT      = 'select';
  * The Action class is used as the base class for the creation of Action objects,
  * which are passed as parameters to action listeners when an action occurs.
  *
- * @constructor {type} The type of the action, accessible as Action.type.
+ * The properties of the Action class carry basic information about an action,
+ * such as the action's type or whether the action's default behavior can be
+ * canceled. For many actions, such as the actions represented by the Action
+ * class constants, this basic information is sufficient. Other actions, however,
+ * may require more detailed information. Actions associated with a mouse click,
+ * for example, need to include additional information about the location of the
+ * click action and whether any keys were pressed during the click action. You
+ * can pass such additional information to action listeners by extending the
+ * Action class, which is what the MouseAction class does. The Atomic-core
+ * library defines several Action subclasses for common actions that require
+ * additional information. Actions associated with each of the Action subclasses
+ * are described in the documentation for each class.
+ *
+ * @param {type:String} The type of the action, accessible as Action.type.
+ * @param {bubbles:Boolean} (default: false) Determines whether the Action
+ * object participates in the bubbling stage of the action flow. The default
+ * value is false.
+ * @param {cancelable:Boolean} (default: false) Determines whether the Action
+ * object can be canceled. The default values is false.
  *
  * @author Luis Sardon
  *
  */
 
 class Action {
-  constructor(type) {
+  constructor(type, bubbles, cancelable) {
     this.type = type;
+    this.bubbles = bubbles || false;
+    this.cancelable = cancelable || false;
+
+    /**
+     * The event target. This property contains the target node. For example,
+     * if a user clicks a button, the target node is the display list node
+     * containing that button.
+     *
+     */
+
+    Object.defineProperty(this, 'target', {
+      value: null,
+      writable: true
+    });
   }
 
   static get ACTIVATE()   { return ACTIVATE;    }
