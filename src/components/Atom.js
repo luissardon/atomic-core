@@ -11,6 +11,8 @@ import FormAction       from '../actions/FormAction';
 import TouchAction      from '../actions/TouchAction';
 import ComponentObject  from './ComponentObject';
 
+const PARENT_CHANGED = 'parentChanged';
+
 /**
  * The Atom class is the abstract base class for all component objects with
  * which the user can interact, using the mouse, keyboard, or other user input
@@ -76,6 +78,8 @@ class Atom extends ComponentObject {
       this.addActionListener(Action.ADDED, this.subscribeEvents, 0, true);
   }
 
+  static get PARENT_CHANGED() { return PARENT_CHANGED; }
+
   /**
    * Parent instance
    *
@@ -91,12 +95,10 @@ class Atom extends ComponentObject {
     */
 
   set parent(value) {
-    if(!!this._parent) {
-      if(this._parent.getChildByName(this.name))
-        this._parent.removeChild(this);
+    if(this._parent !== value) {
+      this._parent = value;
+      this.dispatchAction(Atom.PARENT_CHANGE);
     }
-
-    this._parent = value;
   }
 
   /**
