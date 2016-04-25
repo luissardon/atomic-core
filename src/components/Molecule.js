@@ -39,7 +39,7 @@ class Molecule extends Atom {
      *
      */
 
-    this.children = {};
+    this.children = [];
 
     /**
      * Determines whether or not the children of the component object are mouse,
@@ -87,13 +87,7 @@ class Molecule extends Atom {
    */
 
   get numChildren() {
-    let totalChildren = 0;
-
-    for (let variable in this.children) {
-      totalChildren++;
-    }
-
-    return totalChildren;
+    return this.children.length;
   }
 
   /**
@@ -105,8 +99,10 @@ class Molecule extends Atom {
    * container as a parent, the object is removed from the child list of the
    * other component object container.
    *
-   * @return {child} The Atom instance to add as a child of this Molecule
+   * @param {child:Atom} The Atom instance to add as a child of this Molecule
    * instance.
+   *
+   * @return {Atom} The Atom instance that you pass in the child parameter.
    *
    * @action {added} Dispatched when a component object is added to the
    * component list.
@@ -118,7 +114,7 @@ class Molecule extends Atom {
    */
 
   addChild(child) {
-    return this.addChildAt(child);
+    return this.addChildAt(child, this.children.length);
   }
 
   /**
@@ -152,22 +148,44 @@ class Molecule extends Atom {
    */
 
   addChildAt(child, index) {
-    let validation = this.childIsValid(child);
+    let validChild = this.isValidChild(child);
+    let newChild = child.parent !== this;
 
-    if(validation instanceof Error)
-      throw validation;
+    if(validChild instanceof Error)
+      throw validChild;
 
     // TODO: append child.view to this.view
 
     child.parent = this;
-    child.index = this.updateChildrenOrder(index);
+    child.index = index;
 
-    this.children[child.name] = child;
-    this.cachedChildren[child.index] = child;
+    if(newChild)
+      this.children.push(child);
 
-    child.dispatchAction(Action.ADDED);
+    this.updateChildren();
+
+    if(newChild)
+      child.dispatchAction(Action.ADDED);
+
+    child.addActionListener(Atom.PARENT_CHANGED, this.handleChildParentChanged);
 
     return child;
+  }
+
+  /**
+   * Handle the PARENT_CHANGED action from an existing child.
+   *
+   * @param {a:Action}
+   *
+   */
+
+  handleChildParentChanged(a) {
+    let child = a.target;
+
+    if(child.parent !== this) {
+      this.children.splice(this.getChildIndex(child), 0);
+      child.removeActionListener(Atom.PARENT_CHANGED, this.handleChildParentChanged);
+    }
   }
 
   /**
@@ -178,7 +196,7 @@ class Molecule extends Atom {
    *
    */
 
-  childIsValid(child) {
+  isValidChild(child) {
     if(child instanceof Atom) {
 
       if(child === this) {
@@ -200,47 +218,18 @@ class Molecule extends Atom {
   }
 
   /**
-   * Update the order of the children in the child list.
+   * Checking if the inedx position exist in the child list.
    *
-   * @param {index:int} [Optional] The index position which the new child would
-   * be added. If you specify a currently occupied index position, the child
-   * object that exists at that position and all higher positions are moved up
-   * one position in the child list.
-   *
-   * @return {int} [Optional] The index position which the new child is added.
-   *
-   * @throws {RangeError} Throws if the index position does not exist in the
-   * child list.
+   * @return {boolean} Returns true when it pass the validation, otherwise
+   * new RangeError.
    *
    */
 
-  updateChildrenOrder(index) {
-    this.cachedChildren = [];
+  isValidIndex(index) {
+    if(index > this.children.length || index < 0)
+      return new RangeError(`The index "${index}" position does not exist in the child list`);
 
-    for (let variable in this.children) {
-      let child = this.children[variable];
-      this.cachedChildren[child.index] = child;
-    }
-
-    index = (index || index === 0) ? index : this.cachedChildren.length;
-
-    if(index > this.cachedChildren.length)
-      throw new RangeError(`The index "${index}" position does not exist in the child list`);
-
-    if(index < this.cachedChildren.length && index >= 0)
-      this.cachedChildren.splice(index, 0, undefined);
-
-    for (let i in this.cachedChildren) {
-      let child = this.cachedChildren[i];
-
-      if(child) {
-        child.index = i;
-      }
-
-      i++;
-    }
-
-    return index;
+    return true;
   }
 
   /**
@@ -263,10 +252,10 @@ class Molecule extends Atom {
     if(child instanceof Atom && child.parent === this)
       return true;
 
-    for (let variable in this.children) {
-      if(this.children[variable].contains(child))
+    this.children.forEach(el => {
+      if(el.contains(child))
         return true;
-    }
+    });
 
     return false;
   }
@@ -285,14 +274,20 @@ class Molecule extends Atom {
    */
 
   getChildAt(index) {
-    if(index >= this.numChildren || index < 0)
-      throw new RangeError(`The index "${index}" position does not exist in the child list`);
+    let validIndex = this.isValidIndex(index);
 
-    return this.cachedChildren[index];
+    if(validIndex instanceof Error)
+      throw validIndex;
+
+    return this.children[index];
   }
 
   /**
    * Returns the child component object that exists with the specified name.
+   *
+   * The getChildAt() method is faster than the getChildByName() method. The
+   * getChildAt() method accesses a child from a cached array, whereas the
+   * getChildByName() method has to traverse a linked list to access a child.
    *
    * @param {name:String} The name of the child to return.
    *
@@ -301,7 +296,13 @@ class Molecule extends Atom {
    */
 
   getChildByName(name) {
-    return this.children[name];
+    for (let child of this.children) {
+      if(child.name === name) {
+        return child;
+      }
+    }
+
+    return null;
   }
 
 
@@ -318,10 +319,14 @@ class Molecule extends Atom {
    */
 
   getChildIndex(child) {
-    if(child.parent != this)
+    if(child.parent !== this)
       throw new ArgumentError('The child parameter is not a child of this object.');
 
-    return child.index;
+    this.children.forEach((el, i) => {
+      if(el === child) {
+        return i;
+      }
+    });
   }
 
   /**
@@ -348,15 +353,14 @@ class Molecule extends Atom {
   removeChild(child) {
     // TODO: remove child.view from this.view
 
-    if(child.parent != this)
+    if(child.parent !== this)
       throw new ArgumentError('The child parameter is not a child of this object.');
 
-    delete this.children[child.name];
+    this.children.splice(this.getChildIndex(child), 1);
     child.parent = null;
 
-    this.updateChildrenOrder(-1);
-
     child.dispatchAction(Action.REMOVED);
+    child.removeActionListener(Atom.PARENT_CHANGED, this.handleChildParentChanged);
 
     return child;
   }
@@ -409,11 +413,30 @@ class Molecule extends Atom {
 
   removeChildren(beginIndex, endIndex) {
     beginIndex = beginIndex || 0;
-    endIndex = endIndex || this.cachedChildren.length;
+    endIndex = endIndex || this.children.length;
 
-    for (var i = beginIndex; i < endIndex; i++) {
-      this.removeChildAt(i);
-    }
+    let removeChildren = this.children.slice(beginIndex, endIndex);
+
+    removeChildren.forEach(el => {
+      this.removeChild(el);
+    });
+  }
+
+  /**
+   * Updates the position of all existing childs in the component object
+   * container.
+   *
+   */
+
+  updateChildren() {
+    this.children.forEach((el, i) => {
+      if(el.index !== undefined && el.index !== i) {
+        this.children.splice(i, 1);
+        this.children.splice(el.index, 0, el);
+      }
+
+      delete el.index;
+    });
   }
 
   /**
@@ -431,6 +454,18 @@ class Molecule extends Atom {
    */
 
   setChildIndex(child, index) {
+    let validChild = this.isValidChild(child);
+    let validIndex = this.isValidIndex(index);
+
+    if(validChild instanceof Error)
+      throw validChild;
+
+    if(validIndex instanceof Error)
+      throw validIndex;
+
+    child.index = index;
+
+    this.updateChildren();
   }
 
   /**
