@@ -43,7 +43,6 @@ class ComponentObject extends ActionDispatcher {
 
     Object.defineProperty(this, '_parent', {
       value: null,
-      enumerable: false,
       writable: true
     });
 
@@ -53,7 +52,8 @@ class ComponentObject extends ActionDispatcher {
      */
 
     Object.defineProperty(this, 'name', {
-      value: name
+      value: name,
+      enumerable: true
     });
 
     /**
@@ -63,6 +63,7 @@ class ComponentObject extends ActionDispatcher {
 
     Object.defineProperty(this, 'view', {
       value: Utils.isClient() ? (document.querySelectorAll(`[data-name="${this.name}"]`) || this.render) : undefined,
+      enumerable: true
     });
   }
 
