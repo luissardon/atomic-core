@@ -33,7 +33,8 @@ class ActionDispatcher {
 
     Object.defineProperty(this, 'active', {
       value: true,
-      writable: true
+      writable: true,
+      enumerable: true
     });
   }
 
@@ -153,6 +154,8 @@ class ActionDispatcher {
     }
 
     action = action instanceof Action ? action : new Action(action);
+    action.target = this;
+
     let actionList = this.actionFlow[action.type];
 
     let orderedActionList = [].concat(actionList).reverse();
@@ -186,7 +189,6 @@ class ActionDispatcher {
       throw new TypeError(`${listener} is not a Function`);
 
     let actionList = this.actionFlow[type];
-    let matches = false;
 
     for (let i in actionList) {
       let priorityList = actionList[i];
@@ -196,14 +198,10 @@ class ActionDispatcher {
 
         if(actionListener.listener.uid === listener.uid) {
           delete this.actionFlow[type][actionListener.priority][i];
-          matches = true;
           break;
         }
       }
     }
-
-    if(!matches)
-      throw new ReferenceError(`There is not listener ${listener} into the action flow`);
   }
 }
 
